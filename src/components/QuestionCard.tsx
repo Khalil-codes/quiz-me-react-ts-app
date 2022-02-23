@@ -1,4 +1,5 @@
 import React, { FC, MouseEvent } from "react";
+import { AnswerButtonsWrapper, QuestionCardWrapper } from "../App.styles";
 import { IAnswerObject } from "../types.d";
 
 type Props = {
@@ -6,8 +7,6 @@ type Props = {
     answers: string[];
     checkAnswer: (e: MouseEvent<HTMLButtonElement>) => void;
     userAnswer: IAnswerObject | undefined;
-    questionNumber: number;
-    totalQuestion: number;
 };
 
 const QuestionCard: FC<Props> = ({
@@ -15,18 +14,16 @@ const QuestionCard: FC<Props> = ({
     answers,
     checkAnswer,
     userAnswer,
-    questionNumber,
-    totalQuestion,
 }) => {
     return (
-        <div>
-            <p className="number">
-                Question: {questionNumber} / {totalQuestion}
-            </p>
+        <QuestionCardWrapper>
             <p dangerouslySetInnerHTML={{ __html: question }} />
-            <div>
+            <div className="options-container">
                 {answers.map((answer, idx) => (
-                    <div key={idx}>
+                    <AnswerButtonsWrapper
+                        correct={answer === userAnswer?.correctAnswer}
+                        userClicked={answer === userAnswer?.answer}
+                        key={idx}>
                         <button
                             disabled={!!userAnswer}
                             value={answer}
@@ -35,10 +32,10 @@ const QuestionCard: FC<Props> = ({
                                 dangerouslySetInnerHTML={{ __html: answer }}
                             />
                         </button>
-                    </div>
+                    </AnswerButtonsWrapper>
                 ))}
             </div>
-        </div>
+        </QuestionCardWrapper>
     );
 };
 
