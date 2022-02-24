@@ -2,7 +2,9 @@ import React, { MouseEvent, useState } from "react";
 import { fetchQuizQuestions } from "./API";
 import { AppWrapper, GlobalStyle } from "./App.styles";
 import "./App.styles.ts";
+import DataDisplay from "./components/DataDisplay";
 import QuestionCard from "./components/QuestionCard";
+import Spinner from "./components/Spinner";
 import { Difficulty, IAnswerObject, IQuestionState } from "./types.d";
 
 const App = () => {
@@ -64,15 +66,14 @@ const App = () => {
                 ) : null}
                 {/* Handle Score and Question Number Section */}
                 {!loading && !gameOver ? (
-                    <div className="data-display">
-                        <p className="number">
-                            Question: {number + 1} / {TOTAL_QUESTIONS}
-                        </p>
-                        <p className="score">Score: {score} </p>
-                    </div>
+                    <DataDisplay
+                        questionNumber={number + 1}
+                        totalQuestion={TOTAL_QUESTIONS}
+                        score={score}
+                    />
                 ) : null}
                 {/* Handle Loading Section */}
-                {loading && <div>Loading Questions</div>}
+                {loading && <Spinner />}
 
                 {/* Handle Question Number*/}
                 {!loading && !gameOver && (

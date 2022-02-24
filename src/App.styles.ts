@@ -146,3 +146,30 @@ export const AnswerButtonsWrapper = styled.div<AnswerButtonsWrapperProps>`
         }
     }
 `;
+
+export const SpinnerWrapper = styled.div`
+    width: 100%;
+    height: calc(400px - 4rem - 57px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .spinner {
+        width: 50px;
+        height: 50px;
+        border: 5px solid #3e497a;
+        background-color: transparent;
+        border-bottom: 5px solid transparent;
+        animation: spin 1s infinite;
+        border-radius: 50%;
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+    }
+`;
